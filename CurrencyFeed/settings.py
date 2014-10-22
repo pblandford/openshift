@@ -61,7 +61,7 @@ DATABASES = {
         'NAME': 'currencyfeed',
 				'USER': 'currency_feed',
 				'PASSWORD': 'akkadian',
-				'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_URL']
+				'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_URL'],
 				'ATOMIC_REQUESTS': 'true'
     }
 }
