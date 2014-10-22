@@ -7,12 +7,13 @@ from CurrencyFeed import cf_definitions
 from . import fs_definitions
 from . import percentmap
 from datetime import datetime
+import shutil
 
 
 def scantask():
 	print("starting scantask")
-	if not os.path.exists(cf_definitions.percentdir):
-		os.mkdir(cf_definitions.percentdir)	
+	if not os.path.exists(fs_definitions.percentDir):
+		os.mkdir(fs_definitions.percentDir)	
 
 	percentMap = percentmap.createPercentMap()
 

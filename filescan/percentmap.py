@@ -2,6 +2,7 @@ import jsonpickle
 
 from CurrencyFeed import cf_definitions
 from . import filescan
+from . import fs_definitions
 
 def periodSampleKey(period, sample):
 	return period + "/" + str(sample)
@@ -13,9 +14,9 @@ def createPercentMap():
 		for sample in cf_definitions.samples:
 			percentSets = filescan.fileScan(period, sample)
 			percentMap[periodSampleKey(period, sample)] = percentSets
-#			json = jsonpickle.encode(percentSets, unpicklable=False)
-#			with open(cf_definitions.percentdir + "/" + period + "_" + str(sample), "w") as f:
-#				f.write(json)
+			json = jsonpickle.encode(percentSets, unpicklable=False)
+			with open(fs_definitions.percentDir + "/" + period + "_" + str(sample), "w") as f:
+				f.write(json)
 
 	return percentMap
 
