@@ -1,4 +1,5 @@
 import httplib
+import logging
 from datetime import datetime
 
 from .models import Alert
@@ -16,4 +17,7 @@ def checkAlerts(percentMap):
 			alert.lastalert = datetime.now()
 			alert.save()
 
-			gcmSend.sendAlert(alert.regid, alert.period, alert.sample, alert.threshold, pair)
+			try:
+				gcmSend.sendAlert(alert.regid, alert.period, alert.sample, alert.threshold, pair)
+			except Exception as e:
+				logging.error("could not send alert for " + alert.regid)
