@@ -55,13 +55,10 @@ ROOT_URLCONF = 'CurrencyFeed.urls'
 WSGI_APPLICATION = 'CurrencyFeed.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'currency',
+        'NAME': 'currencyfeed',
 				'USER': 'currency_feed',
 				'PASSWORD': 'akkadian',
 				'HOST': 'localhost',
