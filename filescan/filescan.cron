@@ -1,0 +1,1 @@
+* * * * * cd /opt/currencyfeed; python -c 'from filescan import tasks; tasks.scantask()'
