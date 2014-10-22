@@ -1,3 +1,4 @@
+import os
 
-percentStoreDir = "/opt/MT4/percentages"
+percentStoreDir = os.environ['OPENSHIFT_DATA_DIR'] + "/percentages"
 lockfile = percentStoreDir + "/.lock"
