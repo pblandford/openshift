@@ -39,7 +39,6 @@ INSTALLED_APPS = (
 		'alert',
 		'filescan',
 		'percentages',
-		'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,18 +107,3 @@ LOGGING = {
     },
 }
 
-# Celery configuration
-
-import djcelery
-from datetime import timedelta
-import filescan
-
-CELERYBEAT_SCHEDULE = {
-    'filescan-task': {
-        'task': 'filescan.tasks.scantask',
-        'schedule': timedelta(seconds=60),
-    },
-}
-
-CELERY_TIMEZONE = 'UTC'
-djcelery.setup_loader()
