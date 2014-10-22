@@ -7,9 +7,6 @@ from lockfile import FileLock
 
 def insertPercentMap(percentMap):
 
-	print("start")
-
-
 	Percentage.objects.all().delete()
 
 	for key, value in percentMap.iteritems():
@@ -22,21 +19,16 @@ def insertPercentMap(percentMap):
 			i=0
 			currency = percentSet['currency']
 			for pcVal in percentSet['percentages']:
-#				print(currency, period, sample, pcVal, i)
-
 				percentage = Percentage(currency=currency, percentage=float(pcVal), sample=sample, \
 					number=i, period=period)
 				percentage.save()
 
 				i += 1
-	print("end")
 
 def percentFileName(period, sample):
 	return pc_definitions.percentStoreDir + "/" + period + "_" + str(sample)
 
 def insertPercentMapToDir(percentMap):
-
-	print("start")
 
 	if not os.path.exists(pc_definitions.percentStoreDir):
 		os.mkdir(pc_definitions.percentStoreDir)

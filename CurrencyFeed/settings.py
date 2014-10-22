@@ -59,7 +59,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'currencyfeed',
-				'HOST': '127.5.214.2',
+				'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
 				'ATOMIC_REQUESTS': 'true'
     }
 }

@@ -1,5 +1,4 @@
 from __future__ import print_function
-from celery import task
 import jsonpickle
 import httplib
 import os
@@ -10,7 +9,6 @@ from . import percentmap
 from datetime import datetime
 
 
-@task
 def scantask():
 	print("starting scantask")
 	if not os.path.exists(cf_definitions.percentdir):

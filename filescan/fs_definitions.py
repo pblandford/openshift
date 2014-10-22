@@ -1,5 +1,5 @@
 
-uploadServer = "192.168.0.101:8000"
+uploadServer = "currencyfeed-philblandford.rhcloud.com"
 uploadPath = "/percentages/upload"
 uploadKey  = "oiroiwejroiej"
 

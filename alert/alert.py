@@ -20,4 +20,4 @@ def checkAlerts(percentMap):
 			try:
 				gcmSend.sendAlert(alert.regid, alert.period, alert.sample, alert.threshold, pair)
 			except Exception as e:
-				logging.error("could not send alert for " + alert.regid)
+				logging.error("could not send alert for " + alert.regid, exc_info=e)
