@@ -10,13 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 def amLocal():
 	from socket import gethostname
-	hostname = gethostname()
-	print hostname
-	if "rhcloud" in hostname:
-		print "Running on remote server"
-		return False
-	print "running locally"
-	return True
+	return "rhcloud" not in gethostname():
 
 LOCAL=amLocal()
 
@@ -65,8 +59,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'CurrencyFeed.urls'
 
 WSGI_APPLICATION = 'CurrencyFeed.wsgi.application'
-
-LOCAL=True
 
 if LOCAL==True:
 	DATABASES = {
