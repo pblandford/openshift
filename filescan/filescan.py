@@ -1,5 +1,4 @@
 from __future__ import print_function
-import config
 import os
 import string
 import time
@@ -45,7 +44,7 @@ def doScan(periodInput, sampleInput):
 	for c in cf_definitions.currencies:
 		quoteMap[c] = []
 
-	for pairDir in os.listdir(config.RAMDISK):
+	for pairDir in os.listdir(fs_definitions.ramdisk):
 		base = pairDir[:3]
 		counter = pairDir[3:]
 
