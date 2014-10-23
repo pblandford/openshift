@@ -21,7 +21,7 @@ def createPercentMap():
 # returns tuple (high, low)
 def getPair(percentMap, period, sample, threshold):
 	
-	key = periodSamplekey(period, sample)
+	key = periodSampleKey(period, sample)
 	if not key in percentMap:
 		return None
 	percentSets = percentMap[key]
