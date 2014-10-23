@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+import logging
 import jsonpickle
 from filescan import filescan
 from . import store
