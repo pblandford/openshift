@@ -49,7 +49,10 @@ def doScan(periodInput, sampleInput):
 		base = pairDir[:3]
 		counter = pairDir[3:]
 
-		fullPairDir = config.RAMDISK + "/" + pairDir
+		fullPairDir = fs_definitions.ramdisk + "/" + pairDir
+		if not os.path.isdir(fullPairDir):
+			continue
+
 		for periodFile in os.listdir(fullPairDir):
 			period = periodFile.replace("PERIOD_", "")
 			if period != periodInput:
@@ -61,7 +64,13 @@ def doScan(periodInput, sampleInput):
 
 				quoteSet = QuoteSet(base, counter, period)
 				for line in lines:
-					quoteSet.quotes.append(getQuote(line))
+					try:
+						quoteSet.quotes.append(getQuote(line))
+					except Exception as e:
+						print(line)
+						print(fullPeriodFile)
+						print(fullPairDir)
+						raise e
 
 				quoteMap[base].append(quoteSet)
 				quoteMap[counter].append(quoteSet)

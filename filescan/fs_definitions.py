@@ -1,10 +1,10 @@
 
+ramdisk = "/opt/MT4/ramdisk"
 uploadServer = "currencyfeed-philblandford.rhcloud.com"
 uploadPath = "/percentages/upload"
 uploadKey  = "oiroiwejroiej"
 
-percentDir = "/opt/MT4/ramdisk/percentages"
-percentDirOld = "/opt/MT4/ramdisk/percentages.old"
+mapFile = ramdisk + "/percentages.json"
 
 class PercentSet(object):
 	currency = ""

@@ -12,12 +12,16 @@ import shutil
 
 def scantask():
 	print("starting scantask")
-	if not os.path.exists(fs_definitions.percentDir):
-		os.mkdir(fs_definitions.percentDir)	
 
 	percentMap = percentmap.createPercentMap()
+	
+	unionMap = diffMaps(percentMap)
 
 	json = jsonpickle.encode(percentMap, unpicklable=False)
+
+	with open(fs_definitions.mapFile, "w") as fh:
+		fh.write(json)
+
 	headers = { "Content-type" : "application/json" }
 
 	conn = httplib.HTTPConnection(fs_definitions.uploadServer)
@@ -31,3 +35,19 @@ def scantask():
 	if (msg != "OK"):
 		raiseException("Unexpected response: " + msg)
 
+
+def diffMaps(percentMap):
+	
+	try:
+		with open(fs_definitions.mapFile, "r") as oldMapFh:
+			oldMapJson = oldMapFh.read()
+			oldMap = jsonpickle.decode(oldMapJson)
+	except Exception:
+		return percentMap
+	
+	unionMap = {}
+	for key, value in oldMap.iteritems():
+		if percentMap[key] != value:
+			unionMap[key] = value
+
+	return unionMap

@@ -18,6 +18,7 @@ def receive(request, period, sample):
 
 def upload(request):
 
+	logging.debug("upload: " + len(request.body) + " bytes")
 	percentMap = jsonpickle.decode(request.body)
 
 	alert.checkAlerts(percentMap)

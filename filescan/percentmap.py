@@ -7,6 +7,7 @@ from . import fs_definitions
 def periodSampleKey(period, sample):
 	return period + "/" + str(sample)
 
+# returns map of string(period+sample)=percentSet
 def createPercentMap():
 	percentMap = {}
 
@@ -14,9 +15,6 @@ def createPercentMap():
 		for sample in cf_definitions.samples:
 			percentSets = filescan.fileScan(period, sample)
 			percentMap[periodSampleKey(period, sample)] = percentSets
-			json = jsonpickle.encode(percentSets, unpicklable=False)
-			with open(fs_definitions.percentDir + "/" + period + "_" + str(sample), "w") as f:
-				f.write(json)
 
 	return percentMap
 
