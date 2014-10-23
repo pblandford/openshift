@@ -12,6 +12,8 @@ def checkAlerts(percentMap):
 
 	for alert in alerts:
 		pair = percentmap.getPair(percentMap, alert.period, alert.sample, alert.threshold)
+		if pair == None:
+			continue
 		if pair != alert.lastpair:
 			alert.lastpair = pair
 			alert.lastalert = datetime.now()

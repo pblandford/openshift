@@ -17,15 +17,17 @@ def scantask():
 	
 	unionMap = diffMaps(percentMap)
 
-	json = jsonpickle.encode(percentMap, unpicklable=False)
-
+	fullJson = jsonpickle.encode(percentMap, unpicklable=False)
 	with open(fs_definitions.mapFile, "w") as fh:
-		fh.write(json)
+		fh.write(fullJson)
+
+	unionJson = jsonpickle.encode(unionMap, unpicklable=False)
+	print(unionJson)
 
 	headers = { "Content-type" : "application/json" }
 
 	conn = httplib.HTTPConnection(fs_definitions.uploadServer)
-	conn.request("POST", fs_definitions.uploadPath, json, headers)
+	conn.request("POST", fs_definitions.uploadPath, unionJson, headers)
 	response = conn.getresponse()
 
 	if (response.status != 200):
