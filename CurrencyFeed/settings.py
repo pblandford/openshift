@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 def amLocal():
 	from socket import gethostname
-	return "rhcloud" not in gethostname():
+	return "rhcloud" not in gethostname()
 
 LOCAL=amLocal()
 
