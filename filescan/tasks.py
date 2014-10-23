@@ -22,7 +22,6 @@ def scantask():
 		fh.write(fullJson)
 
 	unionJson = jsonpickle.encode(unionMap, unpicklable=False)
-	print(unionJson)
 
 	headers = { "Content-type" : "application/json" }
 

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function
 
 
 def getPercentages(quotes, isBase):
@@ -46,6 +47,9 @@ def getStrength(currency, period, sample, quoteMap):
 		for pc in pl:
 			combinedPercentages[i] += pc
 			i+=1
+
+	for i in range(len(combinedPercentages)):
+		combinedPercentages[i] = round(combinedPercentages[i],4)
 
 	return combinedPercentages
 
