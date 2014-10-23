@@ -70,7 +70,6 @@ def getPercentSetFromDb(period, sample):
 	for c in cf_definitions.currencies:
 		percentForCurrency = {"currency": c, "percentages" : []}
 		percentObjects = Percentage.objects.filter(period=period, sample=sample, currency=c).order_by('number')
-		logging.debug(percentObjects)
 		for po in percentObjects:
 			percentForCurrency["percentages"].append(po.percentage)
 		percentSet.append(percentForCurrency)
