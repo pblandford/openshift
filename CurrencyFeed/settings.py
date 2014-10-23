@@ -12,7 +12,11 @@ def amLocal():
 	from socket import gethostname
 	hostname = gethostname()
 	print hostname
-	return "rhcloud" not in hostname
+	if "rhcloud" in hostname:
+		print "Running on remote server"
+		return False
+	print "running locally"
+	return True
 
 LOCAL=amLocal()
 
