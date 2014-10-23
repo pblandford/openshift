@@ -1,5 +1,6 @@
 import jsonpickle
 import httplib
+import logging
 
 import cm_definitions
 
