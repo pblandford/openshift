@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import logging
 import jsonpickle
 from filescan import filescan
-from . import store
+from . import store, pc_definitions
 
 from CurrencyFeed.models import Currency
 from alert import alert
@@ -12,7 +12,10 @@ from alert import alert
 # Create your views here.
 def receive(request, period, sample):
 
-	percentSets = store.getPercentSetFromDir(period, int(sample))
+	if (pc_definitions.useDatabase == True):
+		percentSets = store.getPercentSetFromDb(period, int(sample))
+	else:
+		percentSets = store.getPercentSetFromDir(period, int(sample))
 
 	json = jsonpickle.encode(percentSets)
 	return HttpResponse(json, content_type="application/json")
@@ -24,7 +27,10 @@ def upload(request):
 
 	alert.checkAlerts(percentMap)
 
-	store.insertPercentMapToDir(percentMap)
+	if (pc_definitions.useDatabase == True):
+		store.insertPercentMapToDb(percentMap)
+	else:
+		store.insertPercentMapToDir(percentMap)
 
 	return HttpResponse("OK", content_type="text/plain")
 

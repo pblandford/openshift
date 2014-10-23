@@ -1,14 +1,18 @@
 from __future__ import print_function
 from .models import Percentage
 from . import pc_definitions
+from CurrencyFeed import cf_definitions
+
 import os.path
 import jsonpickle
+import logging
 from lockfile import FileLock
 
-def insertPercentMap(percentMap):
-
+def insertPercentMapToDb(percentMap):
+	logging.debug("start db insert")
 	Percentage.objects.all().delete()
 
+	insertList = []
 	for key, value in percentMap.iteritems():
 		fields = key.split("/")
 		period = fields[0]
@@ -19,11 +23,12 @@ def insertPercentMap(percentMap):
 			i=0
 			currency = percentSet['currency']
 			for pcVal in percentSet['percentages']:
-				percentage = Percentage(currency=currency, percentage=float(pcVal), sample=sample, \
-					number=i, period=period)
-				percentage.save()
-
+				insertList.append(Percentage(currency=currency, percentage=float(pcVal), sample=sample, \
+					number=i, period=period))
 				i += 1
+
+	Percentage.objects.bulk_create(insertList)
+	logging.debug("end db insert")
 
 def percentFileName(period, sample):
 	return pc_definitions.percentStoreDir + "/" + period + "_" + str(sample)
@@ -55,4 +60,19 @@ def getPercentSetFromDir(period, sample):
 
 	percentSet = jsonpickle.decode(json)
 
+	return percentSet
+
+def getPercentSetFromDb(period, sample):
+
+	percentList = Percentage.objects.filter(period=period, sample=sample)
+
+	percentSet = []
+	for c in cf_definitions.currencies:
+		percentForCurrency = {"currency": c, "percentages" : []}
+		percentObjects = Percentage.objects.filter(period=period, sample=sample, currency=c).order_by('number')
+		logging.debug(percentObjects)
+		for po in percentObjects:
+			percentForCurrency["percentages"].append(po.percentage)
+		percentSet.append(percentForCurrency)
+		
 	return percentSet

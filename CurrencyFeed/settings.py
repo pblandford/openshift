@@ -8,6 +8,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+def amLocal():
+	from socket import gethostname
+	hostname = gethostname()
+	print hostname
+	return "rhcloud" not in hostname
+
+LOCAL=amLocal()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -54,15 +62,28 @@ ROOT_URLCONF = 'CurrencyFeed.urls'
 
 WSGI_APPLICATION = 'CurrencyFeed.wsgi.application'
 
+LOCAL=True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'currencyfeed',
-				'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
-				'ATOMIC_REQUESTS': 'true'
-    }
-}
+if LOCAL==True:
+	DATABASES = {
+			'default': {
+					'ENGINE': 'django.db.backends.postgresql_psycopg2',
+					'NAME': 'currency',
+					'HOST': 'localhost',
+					'USER': 'currency_feed',
+					'PASSWORD': 'akkadian',
+					'ATOMIC_REQUESTS': 'true'
+			}
+	}
+else:
+	DATABASES = {
+			'default': {
+					'ENGINE': 'django.db.backends.postgresql_psycopg2',
+					'NAME': 'currencyfeed',
+					'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+					'ATOMIC_REQUESTS': 'true'
+			}
+	}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

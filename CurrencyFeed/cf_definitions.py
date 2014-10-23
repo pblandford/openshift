@@ -6,3 +6,4 @@ currencies = ["USD", "EUR", "NZD", "AUD", "GBP", "CAD", "CHF", "JPY" ]
 ramdir = "/opt/MT4/ramdisk"
 percentdir = ramdir + "/percentages"
 
+
