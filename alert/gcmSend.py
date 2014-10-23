@@ -26,5 +26,7 @@ def sendAlert(regid, period, sample, threshold, pair):
 	responseObject = jsonpickle.decode(json)
 
 	if (responseObject['success'] != 1):
-		raise Exception("Unexpected response: " + msg)
+		for result in responseObject['results']:
+			logging.error(result)
+		raise Exception("Unexpected response: " + str(responseObject['failure']) + " messages failed")
 	
