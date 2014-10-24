@@ -8,7 +8,6 @@ import os.path
 import jsonpickle
 import logging
 from lockfile import FileLock
-from bulk_update.helper import bulk_update
 
 def insertPercentMapToDb(percentMap):
 	logging.debug("start db insert")
