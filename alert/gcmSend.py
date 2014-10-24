@@ -28,7 +28,6 @@ def sendAlert(regid, period, sample, threshold, pair):
 	json = response.read()
 	responseObject = jsonpickle.decode(json)
 
-	raise NotRegisteredException()
 	if (responseObject['success'] != 1):
 		for result in responseObject['results']:
 			logging.error(result)
