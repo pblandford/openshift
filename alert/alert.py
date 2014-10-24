@@ -2,7 +2,7 @@ import httplib
 import logging
 from datetime import datetime
 
-from .models import Alert
+from .models import Alert, Client
 from . import gcmSend
 from filescan import percentmap
 
@@ -20,6 +20,13 @@ def checkAlerts(percentMap):
 			alert.save()
 
 			try:
-				gcmSend.sendAlert(alert.regid, alert.period, alert.sample, alert.threshold, pair)
+				gcmSend.sendAlert(alert.client.regid, alert.period, alert.sample, alert.threshold, pair)
+			except gcmSend.NotRegisteredException:
+				logging.error("Received NotRegisteredException")
+				client = Client.objects.get(id=alert.client_id)
+				client.needsupdate = True
+				logging.debug("LOOK A CLIENT: " + str(client))
+				client.save()
+
 			except Exception as e:
-				logging.error("could not send alert for " + alert.regid, exc_info=e)
+				logging.error("could not send alert for " + str(alert.client), exc_info=e)

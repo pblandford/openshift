@@ -1,5 +1,5 @@
 
-USE_LOCAL=False
+USE_LOCAL=True
 ramdisk = "/opt/MT4/ramdisk"
 if USE_LOCAL:
 	uploadServer = "192.168.0.101:8000"

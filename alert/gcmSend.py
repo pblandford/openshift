@@ -4,6 +4,8 @@ import logging
 
 import cm_definitions
 
+class NotRegisteredException(Exception):
+	pass
 
 def sendAlert(regid, period, sample, threshold, pair):
 
@@ -26,8 +28,12 @@ def sendAlert(regid, period, sample, threshold, pair):
 	json = response.read()
 	responseObject = jsonpickle.decode(json)
 
+	raise NotRegisteredException()
 	if (responseObject['success'] != 1):
 		for result in responseObject['results']:
 			logging.error(result)
+			if 'error' in result and result['error'] == 'NotRegistered':
+				raise NotRegisteredException()
+
 		raise Exception("Unexpected response: " + str(responseObject['failure']) + " messages failed")
 	

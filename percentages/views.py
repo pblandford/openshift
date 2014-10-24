@@ -13,9 +13,9 @@ from alert import alert
 def receive(request, period, sample):
 
 	if (pc_definitions.useDatabase == True):
-		percentSets = store.getPercentSetFromDb(period, int(sample))
+		percentSets = store.getPercentSetListFromDb(period, int(sample))
 	else:
-		percentSets = store.getPercentSetFromDir(period, int(sample))
+		percentSets = store.getPercentSetListFromDir(period, int(sample))
 
 	json = jsonpickle.encode(percentSets)
 	return HttpResponse(json, content_type="application/json")
