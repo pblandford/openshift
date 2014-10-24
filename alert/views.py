@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.core import exceptions
 
-from jsonpickle import encode
+import jsonpickle
 
 from .models import Alert, Client
 
@@ -64,6 +64,9 @@ def checkin(request):
 		client = Client(regid=regid)
 		client.save()
 
+	alerts = request.POST['alerts']
+	syncAlerts(alerts, client)
+
 	return HttpResponse("OK", content_type="text/plain")
 
 def updateregid(oldregid, newregid):
@@ -78,3 +81,30 @@ def updateregid(oldregid, newregid):
 		client.save()
 
 	return HttpResponse("OK", content_type="text/plain")
+
+def syncAlerts(alertString, client):
+	# ensure we have the alerts the client thinks we have
+	print(alertString)
+	alerts = jsonpickle.decode(alertString)
+	for alert in alerts:
+		try:
+			dbAlert = Alert.objects.get(sample=alert['sample'], period=alert['period'], \
+				threshold=alert['threshold'])
+		except Alert.DoesNotExist:
+			logging.info("adding unknown alert for " + client.regid)
+			dbAlert = Alert(sample=alert['sample'], period=alert['period'], \
+			        threshold=alert['threshold'], client=client)
+
+	dbAlerts = Alert.objects.filter(client=client)
+	for dbAlert in dbAlerts:
+		found = False
+		for alert in alerts:
+			if alert['sample'] == dbAlert.sample and alert['period'] == dbAlert.period \
+				and alert['threshold'] == dbAlert.threshold:
+					found = True
+					break
+
+		if not found:
+			logging.info("deleting unknown alert for " + client.regid)
+			dbAlert.delete()
+		
