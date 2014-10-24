@@ -1,6 +1,6 @@
 import os
 
-useDatabase = True
+useDatabase = False
 from CurrencyFeed import settings
 if settings.LOCAL == True:
 	from filescan import fs_definitions
