@@ -7,7 +7,7 @@ class Alert(models.Model):
     period = models.TextField() # This field type is a guess.
     sample = models.IntegerField()
     threshold = models.FloatField()
-    lastpair = models.CharField(max_length=7, null=True)
+    lastpair = models.CharField(max_length=7, default="-/-")
     lastalert = models.DateField(null=True)
     class Meta:
         managed = True
