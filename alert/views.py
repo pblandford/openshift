@@ -9,6 +9,8 @@ import logging
 
 def add(request, period, sample, threshold):
 
+	if not 'regid' in request.POST:
+		return HttpResponse(status=400)
 	regid = request.POST['regid']
 
 	try:
@@ -24,6 +26,8 @@ def add(request, period, sample, threshold):
 
 def delete(request, period, sample, threshold):
 
+	if not 'regid' in request.POST:
+		return HttpResponse(status=400)
 	regid = request.POST['regid']
 
 	try:
@@ -40,6 +44,12 @@ def delete(request, period, sample, threshold):
 def checkin(request):
 
 	oldRegid = None
+
+	if not 'regid' in request.POST:
+		return HttpResponse(status=400)
+
+	if not 'alerts' in request.POST:
+		return HttpResponse(status=400)
 
 	regid = request.POST['regid']
 	if 'oldregid' in request.POST:
