@@ -8,7 +8,6 @@ from filescan import percentmap
 
 def checkAlerts(percentMap):
 	alerts = Alert.objects.all()
-	print(alerts)
 
 	for alert in alerts:
 		pair = percentmap.getPair(percentMap, alert.period, alert.sample, alert.threshold)
