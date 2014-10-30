@@ -99,7 +99,7 @@ def syncAlerts(alertString, client):
 	for alert in alerts:
 		try:
 			dbAlert = Alert.objects.get(sample=alert['sample'], period=alert['period'], \
-				threshold=alert['threshold'])
+				threshold=alert['threshold'], client=client)
 		except Alert.DoesNotExist:
 			logging.info("adding unknown alert for " + client.regid)
 			dbAlert = Alert(sample=alert['sample'], period=alert['period'], \
