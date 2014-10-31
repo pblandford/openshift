@@ -21,11 +21,9 @@ def checkAlerts(percentMap):
 			try:
 				gcmSend.sendAlert(alert.client.regid, alert.period, alert.sample, alert.threshold, pair)
 			except gcmSend.NotRegisteredException:
-				logging.error("Received NotRegisteredException")
-				# These are mostly spurious and short-lived - don't worry about handling them for now
-				#client = Client.objects.get(id=alert.client_id)
-				#client.needsupdate = True
-				#client.save()
+				logging.error("Received NotRegisteredException, removing client " + alert.client.regid)
+				Alert.objects.filter(client=client).delete()
+				Client.objects.get(id=alert.client_id).delete()
 
 			except Exception as e:
 				logging.error("could not send alert for " + str(alert.client), exc_info=e)
