@@ -22,7 +22,7 @@ def checkAlerts(percentMap):
 				gcmSend.sendAlert(alert.client.regid, alert.period, alert.sample, alert.threshold, pair)
 			except gcmSend.NotRegisteredException:
 				logging.error("Received NotRegisteredException, removing client " + alert.client.regid)
-				Alert.objects.filter(client=client).delete()
+				alerts = Alert.objects.filter(client=alert.client).delete()
 				Client.objects.get(id=alert.client_id).delete()
 
 			except Exception as e:
