@@ -7,6 +7,7 @@ from .models import Alert, Client
 from CurrencyFeed import settings
 
 import logging
+import cm_definitions
 
 def add(request, period, sample, threshold):
 
@@ -78,8 +79,14 @@ def checkin(request):
 	alerts = request.POST['alerts']
 	syncAlerts(alerts, client)
 
+	try:
+		with open(cm_definitions.adnetFile) as f:
+			adnet = f.read().strip()
+	except Exception:
+		adnet = settings.AD_NETWORK
+
 	responsehash = {}
-	responsehash['AdNet'] = settings.AD_NETWORK
+	responsehash['AdNet'] = adnet
 
 	responseJSON = jsonpickle.encode(responsehash, unpicklable=False)
 
