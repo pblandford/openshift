@@ -119,3 +119,4 @@ LOGGING = {
     },
 }
 
+AD_NETWORK = "MM"

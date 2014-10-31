@@ -4,6 +4,7 @@ from django.core import exceptions
 import jsonpickle
 
 from .models import Alert, Client
+from CurrencyFeed import settings
 
 import logging
 
@@ -77,7 +78,12 @@ def checkin(request):
 	alerts = request.POST['alerts']
 	syncAlerts(alerts, client)
 
-	return HttpResponse("OK", content_type="text/plain")
+	responsehash = {}
+	responsehash['AdNet'] = settings.AD_NETWORK
+
+	responseJSON = jsonpickle.encode(responsehash, unpicklable=False)
+
+	return HttpResponse(responseJSON, content_type="text/json")
 
 def updateregid(oldregid, newregid):
 
