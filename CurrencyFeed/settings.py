@@ -119,4 +119,4 @@ LOGGING = {
     },
 }
 
-AD_NETWORK = "MM"
+AD_NETWORK = "RevMob"
