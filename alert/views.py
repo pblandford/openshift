@@ -20,6 +20,12 @@ def add(request, period, sample, threshold):
 	except Client.DoesNotExist:
 		return HttpResponse("Unknown", content_type="text/plain")
 
+	alerts = Alert.objects.filter(client = client, period = period, sample = int(sample),
+		threshold = float(threshold))
+	if alerts.count() > 0:
+		logging.error("not adding duplicate alert for " + str(client))
+		return HttpResponse("OK", content_type="text/plain")
+
 	alert = Alert(client = client, period = period, sample = int(sample), 
 		threshold = float(threshold))
 	alert.save()
