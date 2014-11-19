@@ -123,6 +123,7 @@ def syncAlerts(alertString, client):
 			logging.info("adding unknown alert for " + client.regid)
 			dbAlert = Alert(sample=alert['sample'], period=alert['period'], \
 			        threshold=alert['threshold'], client=client)
+			dbAlert.save()
 
 	dbAlerts = Alert.objects.filter(client=client)
 	for dbAlert in dbAlerts:
