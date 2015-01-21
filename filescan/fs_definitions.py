@@ -7,7 +7,8 @@ else:
 uploadPath = "/percentages/upload"
 uploadKey  = "oiroiwejroiej"
 
-mapFile = ramdisk + "/percentages.json"
+from CurrencyFeed import cf_definitions
+mapFile = cf_definitions.ramdir + "/percentages.json"
 
 class PercentSet(object):
 	currency = ""
