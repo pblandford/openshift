@@ -44,11 +44,11 @@ def doScan(periodInput, sampleInput):
 	for c in cf_definitions.currencies:
 		quoteMap[c] = []
 
-	for pairDir in os.listdir(fs_definitions.ramdisk):
+	for pairDir in os.listdir(cf_definitions.ramdir):
 		base = pairDir[:3]
 		counter = pairDir[3:]
 
-		fullPairDir = fs_definitions.ramdisk + "/" + pairDir
+		fullPairDir = cf_definitions.ramdir + "/" + pairDir
 		if not os.path.isdir(fullPairDir):
 			continue
 
