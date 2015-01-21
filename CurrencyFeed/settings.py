@@ -45,6 +45,7 @@ INSTALLED_APPS = (
 		'alert',
 		'filescan',
 		'percentages',
+		'feedclient'
 )
 
 MIDDLEWARE_CLASSES = (

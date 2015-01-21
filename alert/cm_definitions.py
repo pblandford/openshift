@@ -5,4 +5,8 @@ gcmHost = "android.googleapis.com"
 gcmPath = "/gcm/send"
 gcmKey = "AIzaSyBHKZHknfNzOxsr51VW7jqKMY9kMUpE2mA"
 
-adnetFile = os.environ['OPENSHIFT_DATA_DIR'] + "/ADNET"
+from CurrencyFeed import settings
+if settings.LOCAL == False:
+	adnetFile = os.environ['OPENSHIFT_DATA_DIR'] + "/ADNET"
+else:
+	adnetFile = "./adnet"
