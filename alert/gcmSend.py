@@ -16,7 +16,7 @@ def sendAlert(regid, period, sample, threshold, pair):
 
 	json = jsonpickle.encode(body, unpicklable=False)
 
-	print json
+	logging.debug(json)
 
 	conn = httplib.HTTPSConnection(cm_definitions.gcmHost)
 	conn.request("POST", cm_definitions.gcmPath, json, headers)
