@@ -53,13 +53,16 @@ def doWrite(fullDate, openPrice, file):
 	print(file)
 	line = getFormatted(fullDate, openPrice)
 
-	with open(file) as fh:
-		lines = fh.readlines()
-		if len(lines) >= MAX_LINES:
-			#import pdb; pdb.set_trace()
-			newlines = [line] + lines[0:-1]
-		else:
-			newlines = [line] + lines
+	try:
+		with open(file) as fh:
+			lines = fh.readlines()
+			if len(lines) >= MAX_LINES:
+				#import pdb; pdb.set_trace()
+				newlines = [line] + lines[0:-1]
+			else:
+				newlines = [line] + lines
+	except:
+		newlines = [line]
 
 	with open(file, "w") as fh:
 		for l in newlines:
