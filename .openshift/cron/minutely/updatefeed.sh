@@ -1,14 +1,14 @@
-dow=$(date +%w)
-hour=$(date +%H)
+dow=$(date -u +%w)
+hour=$(date -u +%H)
 if [ $dow -eq 6 ]
 then
 	exit
 fi
-if [ $dow -eq 5 -a $hour -gt 9 ]
+if [ $dow -eq 5 -a $hour -gt 21 ]
 then
 	exit
 fi
-if [ $dow -eq 0 -a $hour -lt 10 ]
+if [ $dow -eq 0 -a $hour -lt 22 ]
 then
 	exit
 fi
